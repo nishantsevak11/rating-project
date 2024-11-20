@@ -97,13 +97,15 @@ const Survey = ({ onComplete }) => {
         }}
       >
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" className="text-center text-lg md:text-xl">
             Question {currentQuestion + 1} of {questions.length}
           </Typography>
-          <Typography variant="body1">{questions[currentQuestion].text}</Typography>
+          <Typography variant="body1" className="text-center text-sm md:text-base">
+            {questions[currentQuestion].text}
+          </Typography>
 
           {questions[currentQuestion].type === "rating" && (
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 2 }} className="flex justify-center">
               <Rating
                 name="question-rating"
                 value={rating}
@@ -115,11 +117,20 @@ const Survey = ({ onComplete }) => {
           )}
         </CardContent>
 
-        <CardActions>
-          <Button size="small" onClick={handlePrevious} disabled={currentQuestion === 0}>
+        <CardActions className="flex flex-col sm:flex-row items-center justify-between p-4">
+          <Button
+            size="small"
+            onClick={handlePrevious}
+            disabled={currentQuestion === 0}
+            className="w-full sm:w-auto mb-2 sm:mb-0"
+          >
             Previous
           </Button>
-          <Button size="small" onClick={handleNext}>
+          <Button
+            size="small"
+            onClick={handleNext}
+            className="w-full sm:w-auto"
+          >
             {currentQuestion === questions.length - 1 ? "Submit" : "Next"}
           </Button>
         </CardActions>
