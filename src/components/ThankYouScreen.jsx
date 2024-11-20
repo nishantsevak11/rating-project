@@ -1,30 +1,35 @@
-import React, { useEffect } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import React, { useEffect, useState } from "react";
 
 const ThankYouScreen = ({ onReset }) => {
+  const [counter, setCounter] = useState(5); // Countdown timer
+
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
+      setCounter((prev) => prev - 1);
+    }, 1000);
+
+    const redirectTimer = setTimeout(() => {
       onReset();
     }, 5000);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(redirectTimer);
+    };
   }, [onReset]);
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-      <Card sx={{ maxWidth: 500, width: "100%" }}>
-        <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            Thank You!
-          </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            We appreciate your feedback. Redirecting to the home screen...
-          </Typography>
-        </CardContent>
-      </Card>
-    </Box>
+    <div className="min-h-screen bg-gradient-to-b from-black to-gray-800 text-white flex flex-col items-center justify-center">
+      <div className="bg-gray-900 p-8 rounded-lg shadow-lg text-center max-w-md">
+        <h1 className="text-3xl font-bold mb-4">Thank You!</h1>
+        <p className="text-gray-300 mb-4">
+          Your feedback has been submitted successfully. We appreciate your time and effort.
+        </p>
+        <div className="text-2xl font-semibold text-blue-500 animate-pulse">
+          Redirecting in {counter} seconds...
+        </div>
+      </div>
+    </div>
   );
 };
 
